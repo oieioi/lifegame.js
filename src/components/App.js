@@ -17,9 +17,14 @@ function App() {
 
   return (
     <div className="App">
-      <label>x:<input name="x" onChange={(event) => setX(Number(event.target.value))} type="number" value={x} /></label>
-      <label>y:<input name="y" onChange={(event) => setY(Number(event.target.value))} type="number" value={y} /></label>
-      <button onClick={resize}>resize</button>
+      <h1>
+        <a href="https://ja.wikipedia.org/wiki/%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B2%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer" >コンウェイのライフゲーム</a>を実施します。
+      </h1>
+      <div>
+        <button onClick={resize}>resize</button>
+        <label>x:<input name="x" onChange={(event) => setX(Number(event.target.value))} type="number" value={x} /></label>
+        <label>y:<input name="y" onChange={(event) => setY(Number(event.target.value))} type="number" value={y} /></label>
+      </div>
       {destroy ? null : (<Lifegame x={x} y={y} />) }
     </div>
   );

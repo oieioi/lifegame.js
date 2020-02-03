@@ -6,12 +6,18 @@ function Controller({x, y, generation, nextGeneration, autoPlaying, autoPlay, au
 
   return (
     <div className="Controller">
-      <div>generation:<span>{generation}</span></div>
-      <label>オートモードの速さ:<input type="number" value={autoPlaySpeed} onChange={(e) => { setAutoPlaySpeed(e.target.value) }} /></label>
-      <button name="autoPlay" onClick={() => autoPlay(!autoPlaying)}>{ autoPlaying ? 'stop' : 'start'}</button>
-      <button name="next" onClick={nextGeneration}>next</button>
-      <label>ランダムの死にセル頻度: <input type="number" value={frequency} onChange={(e) => { setFrequency(e.target.value) }} /></label>
-      <button name="random" onClick={() => randomize(frequency)}>randomize</button>
+      <div>
+        <button name="next" onClick={nextGeneration}>世代を進める</button>
+        generation:<span>{generation}</span>
+      </div>
+      <div>
+        <button name="random" onClick={() => randomize(frequency)}>ランダムにセルを配置</button>
+        <label>ランダムの死にセル頻度: <input type="number" value={frequency} onChange={(e) => { setFrequency(e.target.value) }} /></label>
+      </div>
+      <div>
+        <button name="autoPlay" onClick={() => autoPlay(!autoPlaying)}>{ autoPlaying ? '止める' : 'オートモード'}</button>
+        <label>オートモードの速さ:<input type="number" value={autoPlaySpeed} onChange={(e) => { setAutoPlaySpeed(e.target.value) }} /></label>
+      </div>
     </div>
   );
 }
