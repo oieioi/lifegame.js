@@ -12,4 +12,11 @@ function Cell({x, y, alive, onChange}) {
     checked={alive}
   />
 }
-export default React.memo(Cell)
+
+export default React.memo(Cell, (prevProps, nextProps) => {
+  if(prevProps.x !== nextProps.x) return false
+  if(prevProps.y !== nextProps.y) return false
+  if(prevProps.alive !== nextProps.alive) return false
+
+  return true;
+})

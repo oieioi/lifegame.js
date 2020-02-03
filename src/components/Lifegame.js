@@ -4,32 +4,35 @@ import Controller from './Controller';
 import logic from '../lib/LifegameLogic';
 
 function Lifegame({x, y}) {
-  const initialCells = logic.twoDArray(x, y, false);
-  const [cells, setCells] = React.useState(initialCells);
-  const [generation, setGeneration] = React.useState(0);
+  const initialCells = React.useMemo(() => logic.twoDArray(x, y, false), [x, y]);
 
+  const [cells, setCells] = React.useState(initialCells);
+  const setCell = (x, y, value) => {
+    setCells((cells) => {
+      const newCells = cells.slice();
+      const newLine = newCells[x].slice();
+      newLine[y] = value;
+      newCells[x] = newLine
+      return newCells
+    })
+  }
+
+  const [generation, setGeneration] = React.useState(0);
   const nextGeneration = () => {
     const newCells = logic.nextCells(cells);
     setGeneration(generation + 1)
     setCells(newCells);
   }
 
-  const setCell = (x, y, value) => {
-    const newCells = cells.slice();
-    const newLine = newCells[x].slice();
-    newLine[y] = value;
-    newCells[x] = newLine
-    setCells(newCells)
-  }
-
   const [autoPlayMode, setAutoPlayMode] = React.useState(false)
+  const [autoPlaySpeed, setAutoPlaySpeed] = React.useState(500)
 
   React.useEffect(()=>{
     if (!autoPlayMode) return;
 
     const timer = setInterval(() => {
       nextGeneration();
-    }, 500)
+    }, autoPlaySpeed)
     return () => { clearInterval(timer) }
   })
 
@@ -46,9 +49,11 @@ function Lifegame({x, y}) {
       generation={generation}
       nextGeneration={nextGeneration}
       autoPlay={setAutoPlayMode}
+      autoPlaySpeed={autoPlaySpeed}
+      setAutoPlaySpeed={setAutoPlaySpeed}
     />
       {lines}
     </>);
 }
 
-export default Lifegame;
+export default React.memo(Lifegame);
