@@ -32,8 +32,12 @@ function getAdojoiningPositions(x, y) {
 }
 
 function twoDArray(x, y, value) {
+  const isFunc = typeof(value) === "function";
   return [...Array(x)].map((_, x) => {
-    return [...Array(y)].map((_, y) => value)
+    return [...Array(y)].map((_, y) => {
+      if (isFunc) return value()
+      else return value
+    })
   });
 }
 

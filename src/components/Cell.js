@@ -1,16 +1,12 @@
 import React from 'react';
+import './Cell.css';
 
 function Cell({x, y, alive, onChange}) {
   const onClick = () => {
     onChange(x, y, !alive)
   };
 
-  return <input
-    type="checkbox"
-    title={`x: ${x}, y: ${y}, alive: ${alive}`}
-    onChange={onClick}
-    checked={alive}
-  />
+  return <span className="Cell" onClick={onClick} >{alive ? 'o' : '_'}</span>
 }
 
 export default React.memo(Cell, (prevProps, nextProps) => {

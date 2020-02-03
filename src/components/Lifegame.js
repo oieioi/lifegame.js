@@ -2,6 +2,7 @@ import React from 'react';
 import Cell from './Cell';
 import Controller from './Controller';
 import logic from '../lib/LifegameLogic';
+import './Lifegame.css';
 
 function Lifegame({x, y}) {
   const initialCells = React.useMemo(() => logic.twoDArray(x, y, false), [x, y]);
@@ -25,7 +26,12 @@ function Lifegame({x, y}) {
   }
 
   const [autoPlayMode, setAutoPlayMode] = React.useState(false)
-  const [autoPlaySpeed, setAutoPlaySpeed] = React.useState(500)
+  const [autoPlaySpeed, setAutoPlaySpeed] = React.useState(250)
+
+  const randomize = (frequency = 0.3) => {
+    const ramdomizeCells = logic.twoDArray(x, y, () => Math.random() > frequency ? true : false);
+    setCells(ramdomizeCells)
+  }
 
   React.useEffect(()=>{
     if (!autoPlayMode) return;
@@ -48,11 +54,13 @@ function Lifegame({x, y}) {
       y={y}
       generation={generation}
       nextGeneration={nextGeneration}
+      autoPlaying={autoPlayMode}
       autoPlay={setAutoPlayMode}
       autoPlaySpeed={autoPlaySpeed}
       setAutoPlaySpeed={setAutoPlaySpeed}
+      randomize={randomize}
     />
-      {lines}
+    <div className="cells"> {lines} </div>
     </>);
 }
 
