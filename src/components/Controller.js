@@ -1,14 +1,19 @@
 import React from 'react';
 import './Controller.css';
 
-function Controller({x, y, generation, nextGeneration, autoPlaying, autoPlay, autoPlaySpeed, setAutoPlaySpeed, randomize}) {
+function Controller({x, y, generation, nextGeneration, autoPlaying, autoPlay, autoPlaySpeed, setAutoPlaySpeed, randomize, aliveCount}) {
   const [frequency, setFrequency] = React.useState(0.7);
+  const cellSize = React.useMemo(()=> x * y, [x, y]);
+  const deadCount = React.useMemo(() => cellSize - aliveCount, [cellSize, aliveCount]);
 
   return (
     <div className="Controller">
       <div>
         <button name="next" onClick={nextGeneration}>世代を進める</button>
-        generation:<span>{generation}</span>
+        generation: <span>{generation}</span>,
+        all: <span>{cellSize}</span>,
+        alive: <span>{aliveCount}</span>,
+        dead: <span>{deadCount}</span>,
       </div>
       <div>
         <button name="random" onClick={() => randomize(frequency)}>ランダムにセルを配置</button>

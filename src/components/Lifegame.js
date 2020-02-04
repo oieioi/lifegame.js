@@ -44,9 +44,16 @@ function Lifegame({x, y}) {
 
   const lines = cells.map((line, x) => {
     const cells = line.map((alive, y) => <Cell key={`${x},${y}`} x={x} y={y} alive={alive} onChange={setCell} />)
-    cells.push(<br />)
+    cells.push(<br key={`br-${x}`} />)
     return cells;
   })
+
+  const aliveCount = React.useMemo(()=>{
+    return cells.reduce((sum, line) => {
+      return sum + line.filter((alive)=> alive).length
+    }, 0)
+  }, [cells])
+
 
   return (<>
     <Controller
@@ -59,6 +66,7 @@ function Lifegame({x, y}) {
       autoPlaySpeed={autoPlaySpeed}
       setAutoPlaySpeed={setAutoPlaySpeed}
       randomize={randomize}
+      aliveCount={aliveCount}
     />
     <div className="cells"> {lines} </div>
     </>);

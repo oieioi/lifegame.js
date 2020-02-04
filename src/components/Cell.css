@@ -7,8 +7,16 @@
   height: 12px;
   line-height: 12px;
   text-align: center;
+  color: black;
 }
 
 .Cell:hover {
   background-color: pink
 }
+
+.Cell.alive {
+}
+
+.Cell.dead {
+}
+
