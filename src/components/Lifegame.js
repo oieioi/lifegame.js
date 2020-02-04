@@ -1,6 +1,7 @@
 import React from 'react';
 import Cell from './Cell';
 import Controller from './Controller';
+import Logger from './Logger';
 import logic from '../lib/LifegameLogic';
 import './Lifegame.css';
 
@@ -23,6 +24,10 @@ function Lifegame({x, y}) {
     const newCells = logic.nextCells(cells);
     setGeneration(generation + 1)
     setCells(newCells);
+    const aliveCount = cells.reduce((sum, line) => {
+      return sum + line.filter((alive)=> alive).length
+    }, 0)
+    dispatchAliveCounts(aliveCount);
   }
 
   const [autoPlayMode, setAutoPlayMode] = React.useState(false)
@@ -48,12 +53,12 @@ function Lifegame({x, y}) {
     return cells;
   })
 
-  const aliveCount = React.useMemo(()=>{
-    return cells.reduce((sum, line) => {
-      return sum + line.filter((alive)=> alive).length
-    }, 0)
-  }, [cells])
-
+  const [aliveCounts, dispatchAliveCounts] = React.useReducer((aliveCounts, value) => {
+    const newState = aliveCounts.slice()
+    newState.push(value)
+    return newState;
+  }, []);
+  const [loggerMode, setLoggerMode] = React.useState(false)
 
   return (<>
     <Controller
@@ -66,8 +71,11 @@ function Lifegame({x, y}) {
       autoPlaySpeed={autoPlaySpeed}
       setAutoPlaySpeed={setAutoPlaySpeed}
       randomize={randomize}
-      aliveCount={aliveCount}
+      aliveCount={aliveCounts[aliveCounts.length - 1]}
+      loggerMode={loggerMode}
+      setLoggerMode={setLoggerMode}
     />
+    <Logger numbers={aliveCounts} display={loggerMode} />
     <div className="cells"> {lines} </div>
     </>);
 }

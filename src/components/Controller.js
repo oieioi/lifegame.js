@@ -1,7 +1,7 @@
 import React from 'react';
 import './Controller.css';
 
-function Controller({x, y, generation, nextGeneration, autoPlaying, autoPlay, autoPlaySpeed, setAutoPlaySpeed, randomize, aliveCount}) {
+function Controller({x, y, generation, nextGeneration, autoPlaying, autoPlay, autoPlaySpeed, setAutoPlaySpeed, randomize, aliveCount, loggerMode, setLoggerMode}) {
   const [frequency, setFrequency] = React.useState(0.7);
   const cellSize = React.useMemo(()=> x * y, [x, y]);
   const deadCount = React.useMemo(() => cellSize - aliveCount, [cellSize, aliveCount]);
@@ -23,6 +23,10 @@ function Controller({x, y, generation, nextGeneration, autoPlaying, autoPlay, au
         <button name="autoPlay" onClick={() => autoPlay(!autoPlaying)}>{ autoPlaying ? '止める' : 'オートモード'}</button>
         <label>オートモードの速さ:<input type="number" value={autoPlaySpeed} onChange={(e) => { setAutoPlaySpeed(e.target.value) }} /></label>
       </div>
+      <div>
+        <label>生セルのグラフ:<input type="checkbox" onChange={(e) => { setLoggerMode(e.target.checked) }} checked={loggerMode} /></label>
+      </div>
+ 
     </div>
   );
 }

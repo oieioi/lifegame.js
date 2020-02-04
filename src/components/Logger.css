@@ -1,0 +1,10 @@
+.Logger {
+  display: flex;
+  zoom: 0.1;
+  align-items: flex-end;
+}
+.LoggerItem {
+  width: 10px;
+  font-size: 0;
+  background-color: green;
+}
