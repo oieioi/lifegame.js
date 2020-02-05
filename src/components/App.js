@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <h1>
-        <span role="img" aria-label="virus">🦠</span><a href="https://ja.wikipedia.org/wiki/%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B2%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer" >コンウェイのライフゲーム</a><span role="img" aria-label="virus">🦠</span>
+        <span role="img" aria-label="virus">🦠</span><a href="https://ja.wikipedia.org/wiki/%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B2%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer">ライフゲーム</a><span role="img" aria-label="virus">🦠</span>
       </h1>
       <div>
         <button onClick={resize}>初期化</button> 
